@@ -1,0 +1,40 @@
+{
+  "run_id": "main_sweep_20261103_103530_7dbe2d",
+  "git_commit": "unknown",
+  "config_hash": "67c3afa7ff74",
+  "config": {
+    "step": "tier1_step8_main_sweep",
+    "betas": [
+      0.0,
+      0.005,
+      0.01,
+      0.02,
+      0.05,
+      0.1,
+      0.15,
+      0.2
+    ],
+    "seeds": [
+      42,
+      1042,
+      2024,
+      3141,
+      5321
+    ],
+    "train_size": 40,
+    "val_size": 40,
+    "test_size": 80,
+    "epochs": 15,
+    "verdict": "NEGATIVE RESULT: NOISE-INDUCED CAPACITY SUPPRESSION"
+  },
+  "system_info": {
+    "platform": "Windows-10-10.0.26300-SP0",
+    "python_version": "3.10.10",
+    "processor": "Intel64 Family 6 Model 126 Stepping 5, GenuineIntel",
+    "machine": "AMD64",
+    "torch_version": "2.1.1+cpu",
+    "numpy_version": "1.26.4",
+    "cuda_available": "False",
+    "timestamp": "2026-11-03T10:35:30.728744"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "dataset": "QM9",
+  "target": "HOMO-LUMO gap (eV)",
+  "target_index": 4,
+  "max_heavy_atoms": 8,
+  "split_seed": 42,
+  "total_qm9_size": 130831,
+  "filtered_size": 21800,
+  "train_size": 15259,
+  "val_size": 3270,
+  "test_size": 3271,
+  "train_frac": 0.7,
+  "val_frac": 0.15,
+  "test_frac": 0.15,
+  "train_target_stats": {
+    "mean": 7.067040299594273,
+    "std": 1.316370710518816,
+    "min": 2.674879312515259,
+    "max": 16.928203582763672,
+    "count": 15259
+  },
+  "val_target_stats": {
+    "mean": 7.038623520649901,
+    "std": 1.324127576614069,
+    "min": 2.0843920707702637,
+    "max": 11.695453643798828,
+    "count": 3270
+  },
+  "test_target_stats": {
+    "mean": 7.074164167087547,
+    "std": 1.2931904680082806,
+    "min": 3.0231850147247314,
+    "max": 11.717222213745117,
+    "count": 3271
+  },
+  "standardization": {
+    "method": "z-score using TRAINING set only",
+    "mean": 7.067040299594273,
+    "std": 1.316370710518816
+  }
+}

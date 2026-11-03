@@ -1,0 +1,37 @@
+{
+  "run_id": "baselines_20261102_224758_079a61",
+  "git_commit": "unknown",
+  "config_hash": "b7f19308eec2",
+  "config": {
+    "step": "tier1_step9_baselines",
+    "models": [
+      "Mean_Predictor",
+      "Ridge_CV",
+      "Small_MLP"
+    ],
+    "sizes": [
+      40,
+      80,
+      160,
+      320
+    ],
+    "seeds": [
+      42,
+      1042,
+      2024,
+      3141,
+      5321
+    ],
+    "n_rows": 60
+  },
+  "system_info": {
+    "platform": "Windows-10-10.0.26300-SP0",
+    "python_version": "3.10.10",
+    "processor": "Intel64 Family 6 Model 126 Stepping 5, GenuineIntel",
+    "machine": "AMD64",
+    "torch_version": "2.1.1+cpu",
+    "numpy_version": "1.26.4",
+    "cuda_available": "False",
+    "timestamp": "2026-11-02T22:47:59.143650"
+  }
+}

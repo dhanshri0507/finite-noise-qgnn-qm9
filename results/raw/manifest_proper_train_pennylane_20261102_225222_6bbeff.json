@@ -1,0 +1,23 @@
+{
+  "run_id": "proper_train_pennylane_20261102_225222_6bbeff",
+  "git_commit": "unknown",
+  "config_hash": "3f6fbc2acdf1",
+  "config": {
+    "step": "tier1_step7_proper_training",
+    "experiment": "pennylane",
+    "beta": 0.0,
+    "seed": 42,
+    "train_size": 40,
+    "best_epoch": 5
+  },
+  "system_info": {
+    "platform": "Windows-10-10.0.26300-SP0",
+    "python_version": "3.10.10",
+    "processor": "Intel64 Family 6 Model 126 Stepping 5, GenuineIntel",
+    "machine": "AMD64",
+    "torch_version": "2.1.1+cpu",
+    "numpy_version": "1.26.4",
+    "cuda_available": "False",
+    "timestamp": "2026-11-02T22:52:22.647625"
+  }
+}

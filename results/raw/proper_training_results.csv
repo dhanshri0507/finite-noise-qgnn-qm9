@@ -1,0 +1,2 @@
+experiment,beta,seed,train_size,best_epoch,train_mse_std,train_mae_eV,val_mse_std,val_mae_eV,test_mse_std,test_mae_eV,gap,elapsed_seconds
+pennylane,0.0,42,40,5,0.7540633198798665,1.0273869077438564,0.5894609996892741,0.9235867865894992,0.7037200539399588,0.9975887285756876,-0.05034326593990768,218.69738268852234

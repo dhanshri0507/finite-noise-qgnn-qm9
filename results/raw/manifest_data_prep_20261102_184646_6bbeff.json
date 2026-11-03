@@ -1,0 +1,23 @@
+{
+  "run_id": "data_prep_20261102_184646_6bbeff",
+  "git_commit": "unknown",
+  "config_hash": "4e175ac96fd8",
+  "config": {
+    "task": "data_preparation",
+    "max_heavy_atoms": 8,
+    "split_seed": 42,
+    "train_frac": 0.7,
+    "val_frac": 0.15,
+    "test_frac": 0.15
+  },
+  "system_info": {
+    "platform": "Windows-10-10.0.26300-SP0",
+    "python_version": "3.10.10",
+    "processor": "Intel64 Family 6 Model 126 Stepping 5, GenuineIntel",
+    "machine": "AMD64",
+    "torch_version": "2.1.1+cpu",
+    "numpy_version": "1.26.4",
+    "cuda_available": "False",
+    "timestamp": "2026-11-02T18:48:10.847987"
+  }
+}

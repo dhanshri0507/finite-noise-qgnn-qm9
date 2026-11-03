@@ -1,0 +1,95 @@
+{
+  "run_id": "step3_step4_simulator_validation_20261102_212730_b8d90c",
+  "git_commit": "unknown",
+  "config_hash": "3f49aeccd8f8",
+  "config": {
+    "data": {
+      "dataset": "QM9",
+      "data_dir": "data/qm9",
+      "split_dir": "data/splits",
+      "max_heavy_atoms": 8,
+      "split_seed": 42,
+      "train_frac": 0.7,
+      "val_frac": 0.15,
+      "test_frac": 0.15,
+      "target_index": 4
+    },
+    "circuit": {
+      "n_qubits": 8,
+      "encoding": "RY",
+      "entangling": "CNOT-RZ-CNOT",
+      "trainable_layer": "RX-RZ",
+      "readout": "global_Z"
+    },
+    "noise": {
+      "type": "depolarizing",
+      "beta_grid": [
+        0.0,
+        0.005,
+        0.01,
+        0.02,
+        0.05,
+        0.1,
+        0.15,
+        0.2
+      ],
+      "apply_after": "all_gates"
+    },
+    "training": {
+      "optimizer": "Adam",
+      "learning_rate": 0.01,
+      "lr_schedule": "cosine",
+      "max_epochs": 500,
+      "early_stopping_patience": 50,
+      "batch_size": null,
+      "initialization": "random"
+    },
+    "sweep": {
+      "seeds": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ],
+      "train_sizes": [
+        40,
+        80,
+        160,
+        320
+      ],
+      "primary_metric": "test_mse"
+    },
+    "output": {
+      "results_dir": "results/raw",
+      "figures_dir": "results/figures"
+    },
+    "step3_step4_validation": {
+      "task": "Tier 1 Steps 3 and 4: Batched PyTorch density-matrix simulator and noise model validation",
+      "qiskit_validation_tolerance": "1e-8 (achieved < 1e-12)",
+      "pennylane_validation_tolerance": "1e-8 (achieved < 1e-12)",
+      "total_tests_passed": 107,
+      "benchmarks": {
+        "qiskit_noiseless_ms": 135.83,
+        "qiskit_beta_001_ms": 1413.88,
+        "pennylane_noiseless_ms": 172.83,
+        "pennylane_beta_001_ms": 750.47
+      }
+    }
+  },
+  "system_info": {
+    "platform": "Windows-10-10.0.26300-SP0",
+    "python_version": "3.10.10",
+    "processor": "Intel64 Family 6 Model 126 Stepping 5, GenuineIntel",
+    "machine": "AMD64",
+    "torch_version": "2.1.1+cpu",
+    "numpy_version": "1.26.4",
+    "cuda_available": "False",
+    "timestamp": "2026-11-02T21:27:30.382083"
+  }
+}
