@@ -1,0 +1,14 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Pytest
+.pytest_cache/
+
+# Large datasets and caches
+data/qm9/
+data/cache_*.pt
+
+# Matplotlib cache
+.matplotlib/
