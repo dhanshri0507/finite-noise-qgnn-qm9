@@ -1,0 +1,34 @@
+{
+  "run_id": "reproduce_pennylane_20261103_184323_0b80da",
+  "git_commit": "8b5b58cfa075ccf5efbf701b4f82dd6ba058d11a",
+  "config_hash": "c51bf77b5178",
+  "config": {
+    "seed": 42,
+    "train_size": 40,
+    "test_size": 80,
+    "epochs": 8,
+    "learning_rate": 0.03,
+    "weight_decay": 0.0001,
+    "noise_rates": [
+      0.0,
+      0.005,
+      0.01,
+      0.02,
+      0.05
+    ],
+    "seeds": [
+      42,
+      1042
+    ]
+  },
+  "system_info": {
+    "platform": "Windows-10-10.0.26300-SP0",
+    "python_version": "3.10.10",
+    "processor": "Intel64 Family 6 Model 126 Stepping 5, GenuineIntel",
+    "machine": "AMD64",
+    "torch_version": "2.1.1+cpu",
+    "numpy_version": "1.26.4",
+    "cuda_available": "False",
+    "timestamp": "2026-11-03T18:43:24.106320"
+  }
+}

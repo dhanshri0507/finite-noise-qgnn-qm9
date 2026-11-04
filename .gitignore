@@ -3,12 +3,21 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Pytest
+# Pytest & environments
 .pytest_cache/
+.venv/
+venv/
+env/
 
-# Large datasets and caches
+# Large datasets, raw molecules, and caches
 data/qm9/
 data/cache_*.pt
+checkpoints/
+caches/
+reference/
 
-# Matplotlib cache
+# Scratch & temporary logs
+scratch*.txt
+*.tmp
+*.log
 .matplotlib/

@@ -1,0 +1,17 @@
+\begin{table}[htbp]
+\centering
+\caption{Post-hoc linear output shrinkage control: evaluating whether validation-fitted scalar shrinkage ($c^*$) of the noiseless model reproduces the noisy model performance.}
+\label{tab:shrinkage_control}
+\begin{tabular}{lrrrrrrrrrrr}
+\toprule
+\textbf{seed} & \textbf{noiseless val mse} & \textbf{noiseless test mse} & \textbf{shrinkage c star} & \textbf{shrunk val mse} & \textbf{shrunk test mse} & \textbf{shrunk test mae eV} & \textbf{best noisy beta} & \textbf{best noisy test mse} & \textbf{diff shrunk minus noisy} & \textbf{shrinkage explains} & \textbf{best epoch noiseless} \\
+\midrule
+42 & 0.5971 & 0.6940 & 1.1535 & 0.5889 & 0.7348 & 1.0189 & 0.0000 & 0.6940 & 0.0407 & No & 5 \\
+1042 & 2.0939 & 0.8349 & -0.1064 & 1.8446 & 0.8416 & 1.1570 & 0.2000 & 0.7782 & 0.0635 & No & 1 \\
+2024 & 0.7299 & 0.8318 & -0.6147 & 0.4749 & 0.6807 & 1.1328 & 0.2000 & 0.6337 & 0.0470 & No & 1 \\
+3141 & 0.6813 & 1.1427 & 0.8881 & 0.6747 & 1.0978 & 1.1643 & 0.1500 & 1.1086 & -0.0109 & Yes & 10 \\
+5321 & 0.6250 & 1.0700 & 0.4250 & 0.5139 & 0.9874 & 1.0857 & 0.2000 & 1.0190 & -0.0316 & Yes & 1 \\
+6789 & 1.1269 & 1.2649 & 1.6761 & 1.0451 & 1.3688 & 1.1747 & 0.0000 & 1.2649 & 0.1039 & No & 9 \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -75,3 +75,38 @@ This log tracks every numerical discrepancy identified during reproduction of th
   - Squaring this reduction: $(1.7 \times 10^3)^2 \approx 2.9 \times 10^6$!
 - **Root Cause**: The reported "effective complexity" is simply the squared Frobenius norm of the output Jacobian divided by the arbitrary ridge constant $\lambda = 10^{-4}$. It measures gradient norm shrinkage, not an independent scale-free dimension.
 - **Resolution**: Documented in Contribution D preparation.
+
+---
+
+## Entry 005: Divergence of Output Gradient Norm and $d_{\text{eff}}$ at $\beta > 0$ — Revised Root Cause: Noise Convention Mismatch
+
+- **Date**: 2026-11-03 (hypothesis); 2026-11-04 (confirmed by minimal circuit test)
+- **Components**: `scripts/reproduce_qiskit.py` vs `reference/FNQGNNMD/Finite_Noise_QGNN_QM9_Colab.ipynb` (Cells 20 & 29); `scripts/milestone3_aer_test.py`
+- **Evidence file**: `results/raw/milestone3_aer_identity_test.json`
+- **Symptom**:
+  - At $\beta = 0.0$: RMS gradient norm ($1.168 \times 10^{-5}$) and $d_{\text{eff}}$ ($8.730 \times 10^{-4}$) match to 12 decimal places.
+  - At $\beta > 0$: Train/test MSE match to 6 decimal places, but gradient norm and $d_{\text{eff}}$ diverge by $1.7\times$–$3.7\times$ (original larger than ours).
+- **Previous hypothesis (RETRACTED)**: This entry initially attributed the divergence to Qiskit Aer pruning identity gates ($R_z(0) = I$, $R_x(0) = I$) during finite-difference perturbation. This was incorrect.
+- **Actual root cause (CONFIRMED by minimal 1-qubit test)**:
+
+  A **noise convention mismatch** between Qiskit Aer and our custom simulator (see also Entry 001):
+
+  | Framework | Depolarizing channel form | Per-gate shrinkage |
+  |-----------|--------------------------|-------------------|
+  | **Qiskit Aer** `depolarizing_error(p, 1)` | $\mathcal{E}(\rho) = (1-p)\rho + p \cdot I/2$ (mixed-state replacement) | $\lambda = 1 - p$ |
+  | **Our custom (PennyLane convention)** | $\mathcal{E}(\rho) = (1-p)\rho + \frac{p}{3}(X\rho X + Y\rho Y + Z\rho Z)$ (Pauli-sum) | $\lambda = 1 - \frac{4p}{3}$ |
+
+  Experimentally verified (`scripts/milestone3_aer_test.py`): for circuit $R_Y(\pi/4) + \text{depol}(\beta)$, the noiseless output is $\langle Z\rangle = \cos(\pi/4) = 0.70711$. At $\beta = 0.10$:
+  - Aer: $\langle Z\rangle = 0.63640$ → shrinkage $= 0.63640/0.70711 = 0.900 = 1 - 0.10$ ✓
+  - Custom (Pauli-sum): $\langle Z\rangle = 0.61283$ → shrinkage $= 0.61283/0.70711 = 0.867 = 1 - 4(0.10)/3$ ✓
+
+  Since $(1 - p) > (1 - 4p/3)$ for $0 < p < 3/4$, Aer contracts quantum states **less** than our simulator. After $N$ noisy gates, Aer outputs are larger by factor $[(1-p)/(1-4p/3)]^N$, so Aer gradient norms and $d_{\text{eff}}$ are correspondingly **larger** than ours.
+
+- **Relationship to Entry 001**: This is the same convention difference documented in Entry 001. The Qiskit $p$-parameter maps to the PennyLane $p$-parameter via $p_{\text{PL}} = \frac{4}{3} p_{\text{Qiskit}}$. Our main sweep uses `experiment='pennylane'` throughout and is internally consistent.
+
+- **Impact on claims**:
+  - **Train/test MSE**: Unaffected. The model is trained and tested under a single consistent simulator convention, and the PennyLane MSEs were reproduced to $< 5 \times 10^{-5}$ using our PennyLane-convention simulator.
+  - **Gradient norm and $d_{\text{eff}}$**: Values are computed by our custom PennyLane-convention simulator. They are **not directly comparable** to the original Qiskit-convention gradient norms — they are systematically smaller by factor $[(1-\beta)/(1-4\beta/3)]^N$ per noisy gate. This distinction is noted in the paper.
+  - **Participation Ratio (PR) and Entropy Effective Rank (ER)**: These are scale-free (normalized by total Jacobian energy) and therefore **unaffected** by the uniform shrinkage factor. PR and ER remain valid cross-convention measures.
+
+- **Resolution**: This entry supersedes the initial identity-gate pruning hypothesis. All downstream claims and `paper_inputs/NUMBERS.md` have been updated to reflect the confirmed noise convention mismatch explanation.

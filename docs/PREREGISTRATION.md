@@ -1,4 +1,6 @@
-# Pre-Registration Document: Finite-Noise Regularization Study in QGNNs
+# Pre-Registration / Formal Analysis Plan: Finite-Noise Regularization Study in QGNNs
+
+> **Note on Protocol Terminology**: Throughout this repository and manuscript, this pre-registration protocol is designated as the formal **Analysis Plan**, committed prior to the full multi-seed evaluation sweeps (initial commit `c62d7df`).
 
 **Study Title:** Empirical Evaluation of Depolarizing Noise Regularization in Quantum Graph Neural Networks for Molecular HOMO-LUMO Gap Prediction  
 **Status:** COMMITTED PRIOR TO FINAL SWEEPS  

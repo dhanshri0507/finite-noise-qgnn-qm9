@@ -1,0 +1,11 @@
+{
+  "n_seeds": 10,
+  "qgnn_mean_test_mse": 1.1179074004701133,
+  "qgnn_std_test_mse": 0.39833187929024527,
+  "gcn_mean_test_mse": 1.1463918137674038,
+  "gcn_std_test_mse": 0.33277987634366296,
+  "mean_diff_gcn_minus_qgnn": 0.02848441329729069,
+  "qgnn_better_count": 5,
+  "paired_ttest_pvalue": 0.6889878072275945,
+  "verdict": "QGNN outperforms GCN in 5/10 seeds. Mean test MSE: QGNN=1.1179, GCN=1.1464. p=0.6890 (not significant)."
+}

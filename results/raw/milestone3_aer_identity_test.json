@@ -1,0 +1,51 @@
+{
+  "beta_0.0": {
+    "aer": 0.7071067811865475,
+    "mixed_form": 0.7071067811865475,
+    "pauli_form": 0.7071067811865475,
+    "shrink_aer": 0.9999999999999999,
+    "shrink_mixed": 0.9999999999999999,
+    "shrink_pauli": 0.9999999999999999,
+    "theory_mixed": 1.0,
+    "theory_pauli": 1.0,
+    "aer_matches_mixed": "True",
+    "aer_matches_pauli": "True"
+  },
+  "beta_0.05": {
+    "aer": 0.6717514421272202,
+    "mixed_form": 0.6717514421272202,
+    "pauli_form": 0.6599663291074442,
+    "shrink_aer": 0.95,
+    "shrink_mixed": 0.95,
+    "shrink_pauli": 0.9333333333333331,
+    "theory_mixed": 0.95,
+    "theory_pauli": 0.9333333333333333,
+    "aer_matches_mixed": "True",
+    "aer_matches_pauli": "False"
+  },
+  "beta_0.1": {
+    "aer": 0.6363961030678926,
+    "mixed_form": 0.6363961030678928,
+    "pauli_form": 0.6128258770283412,
+    "shrink_aer": 0.8999999999999997,
+    "shrink_mixed": 0.9,
+    "shrink_pauli": 0.8666666666666667,
+    "theory_mixed": 0.9,
+    "theory_pauli": 0.8666666666666667,
+    "aer_matches_mixed": "True",
+    "aer_matches_pauli": "False"
+  },
+  "beta_0.2": {
+    "aer": 0.565685424949238,
+    "mixed_form": 0.565685424949238,
+    "pauli_form": 0.5185449728701349,
+    "shrink_aer": 0.7999999999999999,
+    "shrink_mixed": 0.7999999999999999,
+    "shrink_pauli": 0.7333333333333334,
+    "theory_mixed": 0.8,
+    "theory_pauli": 0.7333333333333334,
+    "aer_matches_mixed": "True",
+    "aer_matches_pauli": "False"
+  },
+  "conclusion": "CONFIRMED: Qiskit Aer depolarizing_error(p) uses the MIXED-STATE form E(rho)=(1-p)*rho + p*I/2, giving per-gate shrinkage (1-p). Our custom simulator uses the PAULI-SUM form with shrinkage (1-4p/3). Since (1-p) > (1-4p/3) for 0<p<3/4, Aer shrinks the quantum state LESS, so Aer gradient norms are LARGER than ours at beta>0. The DEBUG_LOG Entry 005 must be REVISED: the cause is a noise CONVENTION MISMATCH (mixed-state vs Pauli-sum depolarizing), NOT identity-gate pruning. Per gate ratio: Aer/Our = (1-beta)/(1-4*beta/3). IMPORTANT: Both are valid depolarizing channels; they are equivalent up to a reparametrization p_eff = 4*beta/3. The 4/3 factor maps between them."
+}

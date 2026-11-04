@@ -1,0 +1,2 @@
+model,train_mse_standardized,test_mse_standardized,test_mae_eV,orig_test_mse,orig_test_mae_eV
+Ridge,0.6426389144488878,1.3071681169791114,1.1749870240688325,1.3072,1.175

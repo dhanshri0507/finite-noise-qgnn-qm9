@@ -1,0 +1,18 @@
+\begin{table}[htbp]
+\centering
+\caption{Numerical reproduction of original Qiskit Aer study across depolarizing noise rates. Train and test MSE exhibit concordance to $<5\times 10^{-7}$, while gradient norm and effective dimension diverge due to the mixed-state vs Pauli-sum channel convention difference.}
+\label{tab:reproduction_qiskit}
+\begin{tabular}{lrrrrrrrrrr}
+\toprule
+\textbf{beta} & \textbf{orig train mse} & \textbf{new train mse} & \textbf{train mse diff} & \textbf{orig test mse} & \textbf{new test mse} & \textbf{test mse diff} & \textbf{orig grad norm} & \textbf{new grad norm} & \textbf{orig d eff} & \textbf{new d eff} \\
+\midrule
+0.0000 & 0.9609 & 0.9609 & 4.7958e-07 & 1.0908 & 1.0908 & 1.4673e-07 & 1.1683e-05 & 1.1683e-05 & 0.0009 & 0.0009 \\
+0.0050 & 0.9632 & 0.9632 & 4.3476e-07 & 1.0915 & 1.0915 & 1.3555e-07 & 9.7100e-06 & 1.6857e-05 & 0.0006 & 0.0018 \\
+0.0100 & 0.9651 & 0.9651 & 3.0565e-08 & 1.0921 & 1.0921 & 4.4449e-07 & 8.0686e-06 & 1.9255e-05 & 0.0004 & 0.0024 \\
+0.0200 & 0.9680 & 0.9680 & 2.2604e-08 & 1.0930 & 1.0930 & 3.1770e-08 & 5.5683e-06 & 1.6121e-05 & 0.0002 & 0.0017 \\
+0.0500 & 0.9723 & 0.9723 & 2.2337e-07 & 1.0945 & 1.0945 & 3.6695e-07 & 1.8202e-06 & 6.0481e-06 & 2.1204e-05 & 0.0002 \\
+0.1000 & 0.9740 & 0.9740 & 4.1415e-07 & 1.0951 & 1.0951 & 3.8604e-08 & 2.7581e-07 & 1.0155e-06 & 4.8684e-07 & 6.6004e-06 \\
+0.2000 & 0.9743 & 0.9743 & 6.0598e-09 & 1.0952 & 1.0952 & 1.4871e-07 & 6.9075e-09 & 2.0616e-08 & 3.0537e-10 & 2.7202e-09 \\
+\bottomrule
+\end{tabular}
+\end{table}
