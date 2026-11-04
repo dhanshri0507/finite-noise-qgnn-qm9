@@ -1,3 +1,9 @@
+commit 326e0d1c26099297b774f07eb35cda18629d68c8
+Author: Dhanshri <dhanshrisonawane0507@gmail.com>
+Date:   2026-11-04 22:50:53 +0530
+
+    Complete Phase 3: 110-run sweep, classical GCN baseline, shrinkage control, rank validations, and complete Springer Nature manuscript
+
 commit 78c3ab898de82af728a12c947243334c8cb7a2aa
 Author: Dhanshri <dhanshrisonawane0507@gmail.com>
 Date:   2026-11-03 16:19:48 +0530

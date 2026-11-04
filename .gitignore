@@ -21,3 +21,4 @@ scratch*.txt
 *.tmp
 *.log
 .matplotlib/
+docs/reference_materials/

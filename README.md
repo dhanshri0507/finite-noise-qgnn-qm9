@@ -6,8 +6,6 @@
 
 A rigorous, from-scratch scientific evaluation investigating whether physical depolarizing quantum noise acts as an effective regularizer in Quantum Graph Neural Networks (QGNNs) for molecular HOMO-LUMO gap prediction on the QM9 benchmark.
 
-This study systematically investigates, reproduces, and extends the preliminary work presented in [`muzabasha/FNQGNNMD`](https://github.com/muzabasha/FNQGNNMD).
-
 ---
 
 ## Aim & Key Scientific Findings
@@ -159,27 +157,6 @@ See [`docs/RUNTIME_BUDGET.md`](docs/RUNTIME_BUDGET.md) for detailed per-experime
 
 We acknowledge the original study and repository that motivated this investigation:
 - **Reference Repository**: [`muzabasha/FNQGNNMD`](https://github.com/muzabasha/FNQGNNMD)
-
-If you use this work, dataset splits, or simulator code, please cite:
-
-```bibtex
-@article{ramakrishnan2014quantum,
-  title={Quantum chemistry structures and properties of 134 kilo molecules},
-  author={Ramakrishnan, Raghunathan and Dral, Pavlo O and Rupp, Matthias and von Lilienfeld, O Anatole},
-  journal={Scientific Data},
-  volume={1},
-  pages={140022},
-  year={2014},
-  doi={10.1038/sdata.2014.22}
-}
-
-@software{sonawane2026finite,
-  author={Sonawane, Dhanshri},
-  title={Empirical Evaluation of Depolarizing Noise in Quantum Graph Neural Networks for Molecular Property Prediction},
-  url={https://github.com/dhanshri0507/finite-noise-qgnn-qm9},
-  year={2026}
-}
-```
 
 ---
 

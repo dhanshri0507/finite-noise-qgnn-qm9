@@ -5,7 +5,6 @@
 | Citation Key | First Author & Year | Publication Title | Venue / Publisher | Persistent Identifier | Verification Source | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | `ramakrishnan2014quantum` | Ramakrishnan et al. (2014) | Quantum chemistry structures and properties of 134 kilo molecules | Scientific Data | DOI: `10.1038/sdata.2014.22` | Crossref API (`10.1038/sdata.2014.22`) | **VERIFIED** |
-| `fnqgnnmd_repo` | Basha (2024) | FNQGNNMD: Finite-Noise Quantum Graph Neural Networks for Molecular Discovery | GitHub Repository | URL: `https://github.com/muzabasha/FNQGNNMD` | GitHub Public Registry | **VERIFIED** |
 | `liu2021transferable` | Liu et al. (2021) | Transferable Multilevel Attention Neural Network for Accurate Prediction of Quantum Chemistry Properties via Multitask Learning | J. Chem. Inf. Model. | DOI: `10.1021/acs.jcim.0c01224` | Crossref API (`10.1021/acs.jcim.0c01224`) | **VERIFIED** |
 | `brasoveanu2023extending` | Brașoveanu et al. (2023) | Extending Graph Neural Networks with Global Features | Proc. Learning on Graphs (LoG) 2023 | OpenReview / TU Wien reposiTUm | OpenReview / TU Wien | **VERIFIED** |
 | `deocarizborde2022graph` | de Ocáriz Borde & Barbero (2022) | Graph Neural Network Expressivity and Meta-Learning for Molecular Property Regression | Proc. Learning on Graphs (LoG) 2022 | arXiv: `2210.15809` | arXiv Query API (`2210.15809`) | **VERIFIED** |
