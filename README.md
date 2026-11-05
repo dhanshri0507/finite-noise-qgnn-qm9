@@ -1,9 +1,5 @@
 # Empirical Evaluation of Depolarizing Noise in Quantum Graph Neural Networks for Molecular Property Prediction
 
-[![Tests](https://img.shields.io/badge/pytest-113%20passed%2C%203%20skipped-brightgreen)](#reproduction-commands)
-[![Python](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-31010/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-
 A rigorous, from-scratch scientific evaluation investigating whether physical depolarizing quantum noise acts as an effective regularizer in Quantum Graph Neural Networks (QGNNs) for molecular HOMO-LUMO gap prediction on the QM9 benchmark.
 
 ---
@@ -103,60 +99,48 @@ python scripts/make_paper_artifacts.py
   - Pre-registered sweep (80 runs): ~4.5 hours.
   - Exploratory extension (30 runs): ~2.5 hours.
 
-See [`docs/RUNTIME_BUDGET.md`](docs/RUNTIME_BUDGET.md) for detailed per-experiment timing benchmarks.
-
 ---
 
 ## Repository Structure
 
 ```
-├── src/qgnn/              # Core library
-│   ├── data.py            # QM9 filtering (<=8 heavy atoms), split generator, zero leakage
-│   ├── simulator.py       # Batched PyTorch density-matrix simulator (Qiskit & PennyLane modes)
-│   ├── complexity.py      # Scale-free PR, ER, and gradient norm measures
-│   └── seed_utils.py      # Seed management, run manifests, and hardware provenance
-├── tests/                 # Unit tests (116 collected)
-│   ├── test_data.py       # Data leakage and split tests
-│   ├── test_simulator.py  # Gate, channel, and trace preservation tests
-│   ├── test_complexity.py # Scale-invariance and synthetic rank tests
-│   └── test_validation_against_frameworks.py # Framework cross-validation (<1e-12)
-├── configs/               # Default configuration files
+├── configs/               # Default experiment configuration files
 ├── data/splits/           # Master splits and metadata (21,800 molecules)
+│   ├── filtered_indices.npy
+│   ├── split_metadata.json
+│   ├── test_indices.npy
+│   ├── train_indices.npy
+│   └── val_indices.npy
 ├── results/
-│   ├── raw/               # Raw experiment CSVs and JSON provenance manifests
-│   └── figures/           # Publication-ready vector PDF and PNG figures
-├── paper_inputs/
-│   └── NUMBERS.md         # Master quantitative ledger backing every claim
-├── paper/                 # Manuscript in Springer Nature LaTeX
-│   ├── main.tex           # LaTeX source
-│   ├── references.bib     # Verified bibliography entries
-│   ├── tables/            # Booktabs LaTeX tables generated from CSVs
-│   └── figures/           # Vector PDF figures
-├── docs/
-│   ├── NOISE_MODEL.md     # Mathematical comparison of noise channels
-│   ├── DEBUG_LOG.md       # Root-cause diagnoses of all reference discrepancies
-│   ├── PREREGISTRATION.md # Formal analysis plan and decision rules
-│   ├── DEVIATIONS.md      # Audit of all deviations from analysis plan
-│   ├── CLAIMS.md          # 17-entry verified claim ledger
-│   └── RUNTIME_BUDGET.md  # Detailed execution times and benchmarks
-└── scripts/
-    ├── reproduce_qiskit.py      # Exact reproduction of reference Qiskit experiment
-    ├── reproduce_pennylane.py   # Exact reproduction of reference PennyLane experiment
-    ├── run_extended_sweep.py    # Main 10-seed sweep + exploratory beta extension
-    ├── milestone3_aer_test.py   # 1-qubit diagnostic proving noise convention mismatch
-    ├── milestone7_gcn_baseline.py # Size-matched classical GCN baseline
-    ├── milestone8_shrinkage_control.py # Post-hoc linear shrinkage control
-    ├── milestone9_rank_validation.py   # Spearman validation & step-size stability
-    ├── make_paper_artifacts.py  # Generates NUMBERS.md, LaTeX tables, and figures
-    └── verify_claims.py         # Asserts agreement of all claims against raw CSVs
+│   ├── figures/           # Publication-ready vector PDF and PNG figures
+│   └── raw/               # Raw experiment CSVs and JSON provenance manifests
+├── scripts/
+│   ├── benchmark_simulator.py       # Simulator performance benchmarking
+│   ├── milestone3_aer_test.py       # 1-qubit diagnostic proving noise convention mismatch
+│   ├── milestone7_gcn_baseline.py   # Size-matched classical GCN baseline (25 parameters)
+│   ├── milestone8_shrinkage_control.py # Post-hoc linear shrinkage control
+│   ├── milestone9_rank_validation.py # Spearman validation & step-size stability
+│   ├── prepare_data.py              # QM9 molecular filtering & dataset preparation
+│   ├── reproduce_pennylane.py       # Exact reproduction of reference PennyLane experiment
+│   ├── reproduce_qiskit.py          # Exact reproduction of reference Qiskit experiment
+│   ├── run_extended_sweep.py        # 110-run sweep (10 seeds x 11 noise levels)
+│   ├── run_main_sweep.py            # Pre-registered 80-run sweep
+│   ├── test_pennylane_match.py      # Numerical validation against PennyLane
+│   ├── test_qiskit_match.py         # Numerical validation against Qiskit Aer
+│   ├── train_baselines.py           # Classical Mean Predictor, Ridge, and MLP baselines
+│   └── train_proper_qgnn.py         # Gradient-descent QGNN training pipeline
+├── src/qgnn/              # Core library
+│   ├── complexity.py      # Scale-free PR, ER, and gradient norm measures
+│   ├── data.py            # QM9 filtering (<=8 heavy atoms), split generator, zero leakage
+│   ├── noise.py           # Single- and two-qubit depolarizing noise channels
+│   ├── seed_utils.py      # Seed management, run manifests, and hardware provenance
+│   └── simulator.py       # Batched PyTorch density-matrix simulator (Qiskit & PennyLane modes)
+└── tests/                 # Comprehensive test suite (116 tests)
+    ├── test_complexity.py # Scale-invariance and synthetic rank tests
+    ├── test_data.py       # Data leakage and split tests
+    ├── test_simulator.py  # Gate, channel, and trace preservation tests
+    └── test_validation_against_frameworks.py # Framework cross-validation (<1e-12)
 ```
-
----
-
-## Citations & Acknowledgments
-
-We acknowledge the original study and repository that motivated this investigation:
-- **Reference Repository**: [`muzabasha/FNQGNNMD`](https://github.com/muzabasha/FNQGNNMD)
 
 ---
 
