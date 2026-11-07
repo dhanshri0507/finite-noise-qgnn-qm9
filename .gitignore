@@ -23,3 +23,18 @@ scratch*.txt
 .matplotlib/
 docs/reference_materials/
 
+# Paper, handoff, docs, and manuscript artifacts
+paper/
+paper_inputs/
+handoff/
+docs/
+CITATION.cff
+scripts/make_paper_artifacts.py
+scripts/verify_claims.py
+scripts/extract_refs.py
+scripts/format_*.py
+scripts/reformat_tables.py
+scripts/update_main_tex.py
+scripts/verify_paper_text.py
+scripts/fix_*.py
+scripts/plot_methodological_architecture.py
