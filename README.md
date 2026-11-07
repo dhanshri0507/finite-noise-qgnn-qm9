@@ -6,44 +6,76 @@ A rigorous, from-scratch scientific evaluation investigating whether physical de
 
 ## Aim & Key Scientific Findings
 
-1. **Baseline Architecture Audit & Optimization Diagnosis**:
-   - **Qiskit Aer Baseline Audit**: Re-implemented and evaluated the baseline Qiskit Aer architecture across depolarizing noise rates ($< 5 \times 10^{-7}$ numerical concordance with reference benchmarks).
-     - *Diagnosis*: At parameter initialization $\boldsymbol{\theta} = \mathbf{0}$, the circuit gradient vanishes identically for the global observable $M = Z^{\otimes 8}$:
-       $$\nabla_{\boldsymbol{\theta}} \langle Z^{\otimes 8} \rangle \equiv \mathbf{0}$$
-       The Nelder-Mead simplex optimizer terminates after exactly one function evaluation (`nit=1`, `nfev=9`), leaving the model completely untrained. The reported flat errors (~0.96–1.09) reflect passive unoptimized state contraction toward zero expectation value, rather than noise-regularized parameter learning.
-   - **PennyLane Hybrid Pipeline Audit**: Evaluated the baseline PennyLane hybrid QGNN architecture ($< 0.00005$ test MSE concordance across reference points: Seed 42: $1.3822 \to 1.3645$; Seed 1042: $1.2734 \to 1.2645$).
-   - **Simulator Noise Convention Mapping**: Proved analytically and experimentally (via a 1-qubit diagnostic benchmark) that Qiskit Aer implements a mixed-state replacement channel:
-     $$\mathcal{E}_{\text{Aer}}(\rho) = (1 - p)\rho + p \frac{I_2}{2} \qquad (\text{shrinkage } \lambda = 1 - p)$$
-     whereas PennyLane implements a Pauli-sum depolarizing channel:
-     $$\mathcal{E}_{\text{PL}}(\rho) = (1 - p)\rho + \frac{p}{3} \sum_{k \in \{X, Y, Z\}} \sigma_k \rho \sigma_k \qquad \left(\text{shrinkage } \lambda = 1 - \frac{4p}{3}\right)$$
-     This mathematical mismatch accounts for previously observed discrepancies in gradient norms and effective dimensions between simulators.
+### 1. Baseline Architecture Audit & Optimization Diagnosis
 
-2. **Metric De-Trivialization (Scale-Free Complexity Metrics)**:
-   - The previously proposed effective dimension metric:
-     $$d_{\text{eff}} = \operatorname{Tr}\left( J (J^T J + \lambda I)^{-1} J^T \right)$$
-     with regularizer $\lambda = 10^{-4}$ operates in the small-Jacobian regime where $\|J\|_F^2 \ll \lambda$, algebraically collapsing to:
-     $$d_{\text{eff}} \approx \frac{1}{\lambda} \|J\|_F^2$$
-     Consequently, the previously claimed "2.9-million-fold capacity reduction" was not an intrinsic dimensionality contraction, but merely the squared decay of the gradient norm.
-   - We replace it with scale-free spectral complexity measures: **Participation Ratio (PR)** and **Entropy Effective Rank (ER)**:
-     $$\text{PR}(J) = \frac{\left( \sum_i \sigma_i^2 \right)^2}{\sum_i \sigma_i^4} = \frac{1}{\sum_i p_i^2}, \qquad \text{ER}(J) = \exp\left( -\sum_i p_i \ln p_i \right)$$
-     Both metrics are proven numerically scale-invariant across step sizes ($CV = 0.0000$) and strongly predict the empirical generalization gap ($\rho = +0.704$ and $\rho = +0.680$, $p < 10^{-4}$).
+* **Qiskit Aer Baseline Audit**: Re-implemented and evaluated the baseline Qiskit Aer architecture across depolarizing noise rates ($< 5 \times 10^{-7}$ numerical concordance with reference benchmarks).
+  
+  *Diagnosis*: At parameter initialization $\boldsymbol{\theta} = \mathbf{0}$, the circuit gradient vanishes identically for the global observable $M = Z^{\otimes 8}$:
 
-3. **Pre-Registered Main Sweep (10 Seeds, 8 Noise Rates, 80 Runs)**:
-   - With random Gaussian initialization $\boldsymbol{\theta} \sim \mathcal{N}(0, 0.1^2)$, Adam optimizer, and Cosine Annealing learning rate schedule, proper training dynamics are restored (train MSE drops from $1.00 \to 0.70$).
-   - Validation error selects an **interior minimum at $\beta^* = 0.150$** (mean validation MSE $1.0512$ vs $1.0827$ at $\beta=0$).
-   - Mean test improvement at $\beta=0.150$ is positive ($\bar{\Delta} = +0.0482$), but the 95% bootstrap confidence interval $[-0.0035, +0.1030]$ spans zero and fails Holm-Bonferroni family-wise error rate control ($p = 0.1256 > \alpha_{\text{Holm}} = 0.0083$).
-   - **Pre-registered Verdict**: **INCONCLUSIVE and UNDERPOWERED** (while a regularizing trend exists, 10 molecular splits lack statistical power to reject the null hypothesis).
+$$\nabla_{\boldsymbol{\theta}} \langle Z^{\otimes 8} \rangle \equiv \mathbf{0}$$
 
-4. **Exploratory Extension: Bracketing the Optimum (11 Noise Rates, 110 Total Runs)**:
-   - Evaluated higher noise rates $\beta \in [0.30, 0.40, 0.50]$ across all 10 seeds.
-   - Confirms a true **U-shaped generalization profile**: validation MSE rises monotonically past $\beta=0.150$ ($1.0553 \to 1.0816 \to 1.1174 \to 1.1567$), test MSE reaches its global minimum at $\beta=0.200$ ($1.0586$), and capacity destruction with negative transfer emerges at $\beta=0.50$ ($\bar{\Delta} = -0.0037$).
+  The Nelder-Mead simplex optimizer terminates after exactly one function evaluation (`nit=1`, `nfev=9`), leaving the model completely untrained. The reported flat errors (~0.96–1.09) reflect passive unoptimized state contraction toward zero expectation value, rather than noise-regularized parameter learning.
 
-5. **Size-Matched Classical GCN Baseline**:
-   - Implemented a 2-layer Graph Convolutional Network (GCN) with 25 parameters, matching the QGNN's 26 parameters (17 circuit + 9 readout).
-   - QGNN outperforms GCN in exactly 5 of 10 seeds; mean test MSE difference is $+0.0285$ ($p = 0.6890$, statistically indistinguishable). Current small-scale QGNNs exhibit performance parity with classical graph networks without quantum advantage.
+* **PennyLane Hybrid Pipeline Audit**: Evaluated the baseline PennyLane hybrid QGNN architecture ($< 0.00005$ test MSE concordance across reference points: Seed 42: $1.3822 \to 1.3645$; Seed 1042: $1.2734 \to 1.2645$).
 
-6. **Post-Hoc Linear Shrinkage Control**:
-   - Validation-fitted scalar multiplier $c^*$ applied post-hoc to noiseless predictions fails to reproduce noisy QGNN performance in 4 of 6 seeds (mean difference $+0.0354$). This confirms that physical depolarizing noise fundamentally alters learned variational representations rather than merely applying a global output attenuation.
+* **Simulator Noise Convention Mapping**: Proved analytically and experimentally (via a 1-qubit diagnostic benchmark) that Qiskit Aer implements a mixed-state replacement channel:
+
+$$\mathcal{E}_{\text{Aer}}(\rho) = (1 - p)\rho + p \frac{I_2}{2} \qquad (\text{shrinkage } \lambda = 1 - p)$$
+
+  whereas PennyLane implements a Pauli-sum depolarizing channel:
+
+$$\mathcal{E}_{\text{PL}}(\rho) = (1 - p)\rho + \frac{p}{3} \sum_{k \in \{X, Y, Z\}} \sigma_k \rho \sigma_k \qquad \left( \text{shrinkage } \lambda = 1 - \frac{4p}{3} \right)$$
+
+  This mathematical mismatch accounts for previously observed discrepancies in gradient norms and effective dimensions between simulators.
+
+---
+
+### 2. Metric De-Trivialization (Scale-Free Complexity Metrics)
+
+* The previously proposed effective dimension metric:
+
+$$d_{\text{eff}} = \text{Tr} \left( J (J^T J + \lambda I)^{-1} J^T \right)$$
+
+  with regularizer $\lambda = 10^{-4}$ operates in the small-Jacobian regime where $\|J\|_F^2 \ll \lambda$, algebraically collapsing to:
+
+$$d_{\text{eff}} \approx \frac{1}{\lambda} \|J\|_F^2$$
+
+  Consequently, the previously claimed "2.9-million-fold capacity reduction" was not an intrinsic dimensionality contraction, but merely the squared decay of the gradient norm.
+
+* We replace it with scale-free spectral complexity measures: **Participation Ratio (PR)** and **Entropy Effective Rank (ER)**:
+
+$$\text{PR}(J) = \frac{\left( \sum_i \sigma_i^2 \right)^2}{\sum_i \sigma_i^4} = \frac{1}{\sum_i p_i^2}, \qquad \text{ER}(J) = \exp\left( -\sum_i p_i \ln p_i \right)$$
+
+  Both metrics are proven numerically scale-invariant across step sizes ($CV = 0.0000$) and strongly predict the empirical generalization gap ($\rho = +0.704$ and $\rho = +0.680$, $p < 10^{-4}$).
+
+---
+
+### 3. Pre-Registered Main Sweep (10 Seeds, 8 Noise Rates, 80 Runs)
+
+* With random Gaussian initialization $\boldsymbol{\theta} \sim \mathcal{N}(0, 0.1^2)$, Adam optimizer, and Cosine Annealing learning rate schedule, proper training dynamics are restored (train MSE drops from $1.00 \to 0.70$).
+* Validation error selects an **interior minimum at $\beta^* = 0.150$** (mean validation MSE $1.0512$ vs $1.0827$ at $\beta=0$).
+* Mean test improvement at $\beta=0.150$ is positive ($\bar{\Delta} = +0.0482$), but the 95% bootstrap confidence interval $[-0.0035, +0.1030]$ spans zero and fails Holm-Bonferroni family-wise error rate control ($p = 0.1256 > \alpha_{\text{Holm}} = 0.0083$).
+* **Pre-registered Verdict**: **INCONCLUSIVE and UNDERPOWERED** (while a regularizing trend exists, 10 molecular splits lack statistical power to reject the null hypothesis).
+
+---
+
+### 4. Exploratory Extension: Bracketing the Optimum (11 Noise Rates, 110 Total Runs)
+
+* Evaluated higher noise rates $\beta \in [0.30, 0.40, 0.50]$ across all 10 seeds.
+* Confirms a true **U-shaped generalization profile**: validation MSE rises monotonically past $\beta=0.150$ ($1.0553 \to 1.0816 \to 1.1174 \to 1.1567$), test MSE reaches its global minimum at $\beta=0.200$ ($1.0586$), and capacity destruction with negative transfer emerges at $\beta=0.50$ ($\bar{\Delta} = -0.0037$).
+
+---
+
+### 5. Size-Matched Classical GCN Baseline
+
+* Implemented a 2-layer Graph Convolutional Network (GCN) with 25 parameters, matching the QGNN's 26 parameters (17 circuit + 9 readout).
+* QGNN outperforms GCN in exactly 5 of 10 seeds; mean test MSE difference is $+0.0285$ ($p = 0.6890$, statistically indistinguishable). Current small-scale QGNNs exhibit performance parity with classical graph networks without quantum advantage.
+
+---
+
+### 6. Post-Hoc Linear Shrinkage Control
+
+* Validation-fitted scalar multiplier $c^*$ applied post-hoc to noiseless predictions fails to reproduce noisy QGNN performance in 4 of 6 seeds (mean difference $+0.0354$). This confirms that physical depolarizing noise fundamentally alters learned variational representations rather than merely applying a global output attenuation.
 
 ---
 
